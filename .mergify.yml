@@ -10,5 +10,32 @@ merge_protections:
     success_conditions:
       - "#approved-reviews-by >= 1"
       - check-success = ci
+  - name: p-neg
+    if:
+      - base = main
+    success_conditions:
+      - "-#approved-reviews-by >= 1"
+  - name: p-space
+    if:
+      - base = main
+    success_conditions:
+      - "base  =  main"
+  - name: p-dquote
+    if:
+      - base = main
+    success_conditions:
+      - 'base = "main"'
+  - name: p-or-dict
+    if:
+      - base = main
+    success_conditions:
+      - or:
+          - label = probe-missing
+          - base = main
+  - name: p-neq
+    if:
+      - base = main
+    success_conditions:
+      - "base != develop"
 merge_protections_settings:
   auto_merge_conditions: true
