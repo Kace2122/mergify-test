@@ -25,12 +25,13 @@ merge_protections:
       - base = main
     success_conditions:
       - 'base = "main"'
-  - name: p-or-list
+  - name: p-or-dict
     if:
       - base = main
     success_conditions:
-      - - label = probe-missing
-        - base = main
+      - or:
+          - label = probe-missing
+          - base = main
   - name: p-neq
     if:
       - base = main
