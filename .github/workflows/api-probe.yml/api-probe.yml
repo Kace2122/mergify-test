@@ -1,0 +1,26 @@
+name: API probe
+on:
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe Mergify API key boundaries
+        env:
+          ADMIN_KEY: ${{ secrets.ADMIN_KEY }}
+          CI_KEY: ${{ secrets.CI_KEY }}
+        run: |
+          set -u
+          B=https://api.mergify.com/v1
+          echo "== GET /application (admin) =="
+          curl -s -o /dev/null -w "%{http_code}\n" "$B/application" -H "Authorization: Bearer $ADMIN_KEY"
+          echo "== GET /application (ci) =="
+          curl -s -o /dev/null -w "%{http_code}\n" "$B/application" -H "Authorization: Bearer $CI_KEY"
+          echo "== GET search/tests (admin) =="
+          curl -s -o /dev/null -w "%{http_code}\n" "$B/ci/Kace2122/repositories/mergify-test/search/tests" -H "Authorization: Bearer $ADMIN_KEY"
+          echo "== GET search/tests (ci) =="
+          curl -s -o /dev/null -w "%{http_code}\n" "$B/ci/Kace2122/repositories/mergify-test/search/tests" -H "Authorization: Bearer $CI_KEY"
+          echo "== GET test-states (admin) =="
+          curl -s -o /dev/null -w "%{http_code}\n" "$B/ci/Kace2122/repositories/mergify-test/test-states" -H "Authorization: Bearer $ADMIN_KEY"
+          echo "== GET test-states (ci) =="
+          curl -s -o /dev/null -w "%{http_code}\n" "$B/ci/Kace2122/repositories/mergify-test/test-states" -H "Authorization: Bearer $CI_KEY"
