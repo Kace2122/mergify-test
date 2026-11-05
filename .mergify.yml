@@ -25,11 +25,6 @@ merge_protections:
       - base = main
     success_conditions:
       - 'base = "main"'
-  - name: p-or-kw
-    if:
-      - base = main
-    success_conditions:
-      - "base = main or label = probe-missing and #approved-reviews-by >= 1"
   - name: p-or-list
     if:
       - base = main
