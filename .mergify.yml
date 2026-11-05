@@ -10,3 +10,5 @@ merge_protections:
     success_conditions:
       - "#approved-reviews-by >= 1"
       - check-success = ci
+merge_protections_settings:
+  auto_merge_conditions: true
